@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Seven Types of Rest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.5;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .header {
+      background-color: #9bcea4;
+      color: black;
+      padding: 30px;
+      text-align: left;
+    }
+
+    .header-content {
+      display: flex;
+      gap: 20px;
+    }
+
+    .logo {
+      max-height: 80px;
+      width: auto;
+      border-radius: 9px;
+    }
+
+    .text-block {
+      text-align: left;
+    }
+
+    .header h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .brand {
+      font-size: 0.9em;
+      font-weight: 500;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+
+    .tagline {
+      font-size: 0.85em;
+      letter-spacing: 3px;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      padding-top: 15px;
+    }
+
+    /* SECTION BLOCKS */
+    .section {
+      padding: 25px 30px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .section h2 {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: black;
+      margin-bottom: 15px;
+    }
+
+    .section p {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    /* REST CARDS */
+    .rest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .rest-card {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .rest-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .rest-card.active {
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .holiday-tips {
+      display: none;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .holiday-tips.active {
+      display: block;
+    }
+    
+    .holiday-tips h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    
+    .holiday-tips ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .holiday-tips li {
+      font-size: 0.8rem;
+      color: #555;
+      margin-bottom: 4px;
+      padding-left: 12px;
+      position: relative;
+    }
+    
+    .holiday-tips li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #9bcea4;
+    }
+    
+    .click-hint {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 0.7rem;
+      color: #9bcea4;
+      font-style: italic;
+    }
+    
+    .rest-card.physical { border-left-color: #e53e3e; }
+    .rest-card.mental { border-left-color: #3182ce; }
+    .rest-card.emotional { border-left-color: #d69e2e; }
+    .rest-card.social { border-left-color: #38a169; }
+    .rest-card.sensory { border-left-color: #805ad5; }
+    .rest-card.creative { border-left-color: #dd6b20; }
+    .rest-card.spiritual { border-left-color: #319795; }
+    
+    .rest-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-weight: 700;
+      color: white;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+    
+    .physical .rest-number { background-color: #e53e3e; }
+    .mental .rest-number { background-color: #3182ce; }
+    .emotional .rest-number { background-color: #d69e2e; }
+    .social .rest-number { background-color: #38a169; }
+    .sensory .rest-number { background-color: #805ad5; }
+    .creative .rest-number { background-color: #dd6b20; }
+    .spiritual .rest-number { background-color: #319795; }
+    
+    .rest-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    
+    .rest-description {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      padding: 20px 30px;
+      font-size: 0.85em;
+      color: #333;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1a365d;
+      padding: 4px 8px;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: #000;
+    }
+
+    .footer-brand {
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+    @media (max-width: 600px) {
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .rest-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-content">
+        <img src="logo.jpg" alt="Logo" class="logo" />
+        <div class="text-block">
+          <h1>SEVEN TYPES OF STRATEGIC REST</h1>
+          <div class="brand">The Pharma Coach</div>
+          <div class="tagline">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <h2>Strategic Restoration for Pharmaceutical Leaders</h2>
+      <p>Seven strategic restoration practices designed specifically for pharmaceutical executives and leaders. Click on each rest type below to discover personalized holiday and break strategies that go beyond simple physical sleep.</p>
+      
+      <div class="rest-grid">
+        <div class="rest-card physical" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">1</div>
+          <h3 class="rest-title">Physical Rest</h3>
+          <p class="rest-description">Sleep, napping, yoga, massage, and gentle movement. Essential for leaders who push through physical exhaustion.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Physical Rest Ideas:</h4>
+            <ul>
+              <li>Schedule massage appointments at your resort or spa</li>
+              <li>Take afternoon naps without guilt or time limits</li>
+              <li>Try gentle morning yoga on the beach or balcony</li>
+              <li>Walk barefoot on sand or grass for grounding</li>
+              <li>Sleep in as late as your body naturally wakes</li>
+              <li>Take relaxing baths with Epsom salts</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card mental" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">2</div>
+          <h3 class="rest-title">Mental Rest</h3>
+          <p class="rest-description">Brain breaks every two hours, journaling racing thoughts, and stepping away from decision-making.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Mental Rest Ideas:</h4>
+            <ul>
+              <li>Leave your phone in airplane mode for entire days</li>
+              <li>Read fiction novels instead of business books</li>
+              <li>Let others make all dining and activity decisions</li>
+              <li>Practice mindful observation of nature without analysis</li>
+              <li>Avoid checking emails or industry news completely</li>
+              <li>Journal stream-of-consciousness thoughts each morning</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card emotional" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">3</div>
+          <h3 class="rest-title">Emotional Rest</h3>
+          <p class="rest-description">Being authentic about feelings rather than maintaining the "everything's fine" leadership facade.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Emotional Rest Ideas:</h4>
+            <ul>
+              <li>Have honest conversations with your partner about work stress</li>
+              <li>Allow yourself to feel excited, bored, or melancholy without fixing it</li>
+              <li>Skip networking events and forced social activities</li>
+              <li>Say no to vacation plans that don't genuinely appeal to you</li>
+              <li>Express frustrations through art, writing, or conversation</li>
+              <li>Practice gratitude for non-work aspects of your life</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card social" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">4</div>
+          <h3 class="rest-title">Social Rest</h3>
+          <p class="rest-description">Distinguishing between relationships that energize you versus those that drain your leadership energy.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Social Rest Ideas:</h4>
+            <ul>
+              <li>Vacation with people who know you beyond your job title</li>
+              <li>Avoid business conferences or industry meetups</li>
+              <li>Spend time with family members who energize you</li>
+              <li>Take solo walks or activities when you need space</li>
+              <li>Decline calls from colleagues who typically drain you</li>
+              <li>Engage with locals who have no expectations of you</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card sensory" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">5</div>
+          <h3 class="rest-title">Sensory Rest</h3>
+          <p class="rest-description">Relief from screen glare, office noise, and technology overwhelm through quiet spaces and nature.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Sensory Rest Ideas:</h4>
+            <ul>
+              <li>Choose accommodations away from busy streets or airports</li>
+              <li>Turn off all notifications and put devices in another room</li>
+              <li>Spend time in natural settings with minimal artificial lighting</li>
+              <li>Listen to natural sounds: waves, birds, rustling leaves</li>
+              <li>Enjoy meals without background music or TV</li>
+              <li>Use blackout curtains for deeper, uninterrupted sleep</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card creative" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">6</div>
+          <h3 class="rest-title">Creative Rest</h3>
+          <p class="rest-description">Exposure to natural beauty, art, and wonder that restores innovative thinking and problem-solving.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Creative Rest Ideas:</h4>
+            <ul>
+              <li>Visit art galleries, museums, or cultural sites without agenda</li>
+              <li>Watch sunrises or sunsets without photographing them</li>
+              <li>Explore local architecture and design with fresh eyes</li>
+              <li>Take scenic drives or walks purely for beauty</li>
+              <li>Attend local music or theater performances</li>
+              <li>Sketch, paint, or create without pressure for results</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="rest-card spiritual" onclick="toggleHolidayTips(this)">
+          <div class="click-hint">click for tips</div>
+          <div class="rest-number">7</div>
+          <h3 class="rest-title">Spiritual Rest</h3>
+          <p class="rest-description">Prayer, contemplation, meditation, and connecting to purpose beyond quarterly targets and market share.</p>
+          <div class="holiday-tips">
+            <h4>Holiday Spiritual Rest Ideas:</h4>
+            <ul>
+              <li>Start each day with prayer or meditation practice</li>
+              <li>Visit places of worship or spiritual significance</li>
+              <li>Reflect on your life's purpose beyond professional achievements</li>
+              <li>Practice gratitude for experiences larger than work success</li>
+              <li>Engage in contemplative reading of wisdom literature</li>
+              <li>Participate in volunteer activities that connect you to community</li>
+              <li>Spend quiet time in nature contemplating your place in the world</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <h2>Elite Performance Through Strategic Rest</h2>
+      <p>Billionaires systematically address multiple rest types, not just physical sleep. Research shows that high-performing pharmaceutical leaders who engage in comprehensive rest practices demonstrate 40% better decision-making capacity and 60% improved innovation metrics compared to those who rely solely on traditional vacation time.</p>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://thepharmacoach.co" target="_blank">🌐 Website</a>
+        <a href="https://fridaypharmaclub.substack.com/" target="_blank">📰 Friday Pharma Leadership Club</a>
+        <a href="mailto:ben@thepharmacoach.co">✉️ ben@thepharmacoach.co</a>
+      </div>
+      <div class="footer-brand">
+        &copy; 2025 The Pharma Coach
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+    function toggleHolidayTips(card) {
+      const tips = card.querySelector('.holiday-tips');
+      const isActive = tips.classList.contains('active');
+      
+      // Close all other tips
+      document.querySelectorAll('.holiday-tips.active').forEach(tip => {
+        tip.classList.remove('active');
+      });
+      document.querySelectorAll('.rest-card.active').forEach(c => {
+        c.classList.remove('active');
+      });
+      
+      // Toggle current card
+      if (!isActive) {
+        tips.classList.add('active');
+        card.classList.add('active');
+      }
+    }
+    
+    // Close tips when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.rest-card')) {
+        document.querySelectorAll('.holiday-tips.active').forEach(tip => {
+          tip.classList.remove('active');
+        });
+        document.querySelectorAll('.rest-card.active').forEach(card => {
+          card.classList.remove('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
